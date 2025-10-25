@@ -51,7 +51,7 @@ function AppSidebar() {
   return (
     <Sidebar>
       <SidebarHeader className={'p-4'}>
-        <Image src={'/logo.svg'} alt='logo' width={130} height={120} />
+        <Link href={'/'}><Image src={'/logo.svg'} alt='logo' width={130} height={120} /></Link>
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>

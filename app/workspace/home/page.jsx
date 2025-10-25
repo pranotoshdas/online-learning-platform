@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Menu, X, Zap, Lightbulb, Laptop, ShieldCheck, TrendingUp, Cpu, Users } from 'lucide-react'; // Added new icons
 import Link from 'next/link';
+import { UserButton, useUser } from '@clerk/nextjs';
 
 // Utility components for consistency
 const Button = ({ children, primary = true, className = '', ...props }) => (
@@ -30,6 +31,7 @@ const FeatureCard = ({ icon: Icon, title, description }) => (
 
 // Main Application Component
 const HomeDemo = () => {
+    const { user } = useUser();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navLinks = [
@@ -73,9 +75,22 @@ const HomeDemo = () => {
 
           {/* Desktop CTA */}
           <div className="hidden lg:block">
-            <Button primary={true} className="px-5 py-2 text-base">
-              <Link href={'/workspace'}>Get Started Free</Link>
-            </Button>
+            {user ? (<div> <UserButton afterSignOutUrl="/" appearance={{ baseTheme: 'light' }}>
+        <UserButton.MenuItems>
+          <UserButton.Link
+            label="Dashboard"
+            href="/workspace"
+            labelIcon={<span>📊</span>}
+          />
+        </UserButton.MenuItems>
+      </UserButton></div>):
+            (<div>
+              <Link href={'/workspace'}>
+              <Button primary={true} className="px-5 py-2 text-base">
+              Get Started Free
+            </Button></Link>
+            </div>)}
+            
           </div>
 
           {/* Mobile Menu Button */}
